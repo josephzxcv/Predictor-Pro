@@ -422,6 +422,7 @@ document.querySelectorAll("[data-connect-btn]").forEach((btn) => {
 /* =====================================================
    1. AVIATOR (НАСТОЯЩАЯ КРИВАЯ ВЗЛЁТА SPRIBE)
    ===================================================== */
+const aviatorBox = document.getElementById("aviator-box");
 const aviatorCurve = document.getElementById("aviator-curve");
 const aviatorArea = document.getElementById("aviator-area");
 const aviatorPlane = document.getElementById("aviator-plane");
@@ -473,9 +474,13 @@ btnAviator.addEventListener("click", () => {
       `M ${startX} ${startY} Q ${ctrlX} ${ctrlY} ${endX} ${endY} L ${endX} ${startY} Z`
     );
 
-    // Перемещение самолёта по траектории
-    const moveX = ease * 270;
-    const moveY = -Math.pow(ease, 1.45) * 135;
+    // Перемещение самолёта точно по вершине кривой на любом размере экрана телефона
+    const boxW = aviatorBox.clientWidth || 320;
+    const boxH = aviatorBox.clientHeight || 200;
+    const scaleX = boxW / 360;
+    const scaleY = boxH / 200;
+    const moveX = (endX - startX) * scaleX - 24;
+    const moveY = (endY - startY) * scaleY + 8;
     const angle = -ease * 22;
     aviatorPlane.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${angle}deg)`;
 
