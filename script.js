@@ -261,6 +261,11 @@ userIdInput.addEventListener("input", () => {
   userIdInput.value = userIdInput.value.replace(/\D/g, "").slice(0, 15);
 });
 
+// Разрешаем вводить в поле пароля только цифры
+accessPassInput.addEventListener("input", () => {
+  accessPassInput.value = accessPassInput.value.replace(/\D/g, "");
+});
+
 // Проверка сохраненной сессии (строго 10 цифр)
 const savedId = sessionStorage.getItem("betandyou_id");
 if (savedId && /^\d{10}$/.test(savedId)) {
